@@ -28,16 +28,18 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin: 0 20px;
 }
 
-main>* {
-  align-self: center;
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
 }
 
-main>section {
+main > section {
   padding: 20px;
 }
 
@@ -50,13 +52,7 @@ main article {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   display: flex;
-  height: 100%;
   flex-direction: column;
-  margin: 20px 0;
-
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 section h1,
@@ -93,6 +89,16 @@ header h1 {
   font-size: 24px;
 }
 
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
 /* Lista de navegação */
 
 nav ul {
@@ -106,11 +112,18 @@ nav ul {
   margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 nav a {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease-in-out;
 }
 
 nav a:hover {
@@ -119,43 +132,40 @@ nav a:hover {
 
 /* Seções */
 
-#info-squirtle {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.squirtle-images {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-
-}
-
-.squirtle-images img:hover {
-  transform: scale(1.1);
-  /* Aumenta a escala da imagem em 1.1x */
-}
-
-.squirtle-images img {
+#info-squirtle img {
   width: 150px;
   height: 150px;
   align-self: center;
-  padding: 10px;
-  margin: auto;
-  display: inline-flex;
-  transition: transform 0.3s ease;
 }
 
-#imagem2 {
-  padding: 40px;
+#info-squirtle div {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-#curiosidades .curiosidades-list {
+#info-squirtle img,
+#evolucao img {
+  transition: transform 0.3s ease-in-out;
+}
+
+#info-squirtle img:hover,
+#evolucao img:hover {
+  transform: scale(1.1);
+}
+
+#info-squirtle img:nth-of-type(2) {
+  padding: 35px;
+}
+
+#curiosidades li::marker {
+  content: '🔍';
+}
+
+#curiosidades ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  list-style: none;
 }
 
 #evolucao ul {
@@ -165,14 +175,16 @@ nav a:hover {
   list-style: none;
 }
 
-#evolucao img {
-  height: 150px;
-  transition: transform 0.3s ease;
+@media (max-width: 768px) {
+  #evolucao ul {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-#evolucao img:hover {
-  transform: scale(1.1);
-  /* Aumenta a escala da imagem em 1.1x */
+#evolucao img {
+  height: 150px;
+  width: 150px;
 }
 
 #evolucao figcaption {
@@ -180,6 +192,12 @@ nav a:hover {
   font-size: 20px;
   text-align: center;
   margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  #evolucao figcaption {
+    font-size: 16px;
+  }
 }
 
 article {
@@ -192,6 +210,7 @@ article {
 a[target='_blank'] {
   color: #4592c4;
   font-weight: bold;
+  transition: opacity 0.3s ease-in-out;
 }
 
 a[target='_blank']:hover {
@@ -204,28 +223,20 @@ footer {
   background-color: #343a40;
   color: #fff;
   padding: 20px;
-  text-align: center;
   bottom: 0;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+footer p {
+  margin-bottom: 0;
 }
 
 footer a {
   text-decoration: none;
-  opacity: 0.5;
-  transition: color 0.3s ease-in-out;
-}
-
-footer a:hover {
-  
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in-out;
 }
 
 footer a[href*='#'] {
@@ -244,50 +255,18 @@ footer a[href]:hover {
   opacity: 0.8;
 }
 
-@media screen and (max-width: 767px) {
-  main {
-    display: grid;
-    grid-template-columns: 1fr;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav ul li {
-    margin: 10px 0;
-  }
-
-  .evolucao-images {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .evolucao-images img {
-    margin: 10px 0;
-  }
-
-  figcaption {
-    font-size: 16px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  h2 {
-    font-size: 18px;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(-20px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
+
+main > section,
+main > article {
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
