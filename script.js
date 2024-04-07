@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let elementoPai = document.getElementById("header")
 
             let titulo = document.createElement("h1")
-            titulo.innerHTML = ${procura.get("nome")}
+            titulo.innerHTML = `${procura.get("nome")}`
             elementoPai.appendChild(titulo)
 
         } catch (error) {
