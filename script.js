@@ -1,8 +1,28 @@
-let procura = new URLSearchParams(location.search)
-document.title = "Página do " + procura.get("evolucao")
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const evolutionName = urlParams.get('evolucao');
 
-const body = document.getElementById("body")
-let pokeImage = fetch('https://pokeapi.co/api/v2/pokemon/' + procura.get("evolucao"))
-let criaImage = document.createElement('img')
-criaImage.src = (pokeImage + "/sprites.front_defaut")
-body.appendChild(criaImage)
+    async function fetchPokemon() {
+        try {
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionName}`);
+            const data = await response.json();
+            const pokemonImage = data.sprites.front_default;
+
+            if (!pokemonImage) {
+                throw new Error("Imagem não encontrada para este Pokémon.");
+            }
+
+            const img = document.createElement('img');
+            img.src = pokemonImage;
+            img.alt = evolutionName;
+            img.setAttribute('aria-label', `${evolutionName} Image`);
+
+            const pokemonInfo = document.getElementById('pokemon-info');
+            pokemonInfo.appendChild(img);
+        } catch (error) {
+            console.error("Ocorreu um erro ao carregar a imagem do Pokémon:", error.message);
+        }
+    }
+
+    fetchPokemon();
+});
