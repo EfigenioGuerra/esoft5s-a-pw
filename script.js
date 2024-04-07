@@ -1,4 +1,4 @@
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(location.search);
 const evolutionName = urlParams.get('evolucao');
 
 async function fetchPokemon() {
@@ -14,7 +14,6 @@ async function fetchPokemon() {
         const img = document.createElement('img');
         img.src = pokemonImage;
         img.alt = evolutionName;
-        img.setAttribute('aria-label', `${evolutionName} Image`);
 
         const pokemonInfo = document.getElementById('pokemon-info');
         pokemonInfo.appendChild(img);
