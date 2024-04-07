@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const pokemonInfo = document.getElementById('pokemon-info');
             pokemonInfo.appendChild(img);
+
+            let elementoPai = document.getElementById("header")
+
+            let titulo = document.createElement("h1")
+            titulo.innerHTML = ${procura.get("nome")}
+            elementoPai.appendChild(titulo)
+
         } catch (error) {
             console.error("Ocorreu um erro ao carregar a imagem do Pokémon:", error.message);
         }
